@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-fanout
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  ## Replace "test.modulenft.xyz" with your domain!
+  - host: "test.modulenft.xyz"
+    http:
+      paths:
+      - path: "/app1"
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-world-path-app1
+            port:
+              number: 80
+      - path: "/app2"
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-world-path-app2
+            port:
+              number: 80
